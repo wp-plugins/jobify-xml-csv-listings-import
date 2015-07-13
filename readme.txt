@@ -54,7 +54,7 @@ This Add-On was created using the [Rapid Add-On API](http://www.wpallimport.com/
 
 Don't have time? We'll write one for you.
 
-**[Read more about getting an Add-On made for your plugin or theme.](http://www.wpallimport.com/add-ons/#developers)**
+[Read more about getting an Add-On made for your plugin or theme.](http://www.wpallimport.com/add-ons/#developers)
 
 == Installation ==
 
