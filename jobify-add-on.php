@@ -66,7 +66,7 @@ $jobify_addon->add_options(
 $jobify_addon->set_import_function( 'jobify_addon_import' );
 
 $jobify_addon->admin_notice(
-	'The Jobify Add-On requires WP All Import <a href="http://www.wpallimport.com/order-now/?utm_source=free-plugin&utm_medium=dot-org&utm_campaign=jobify" target="_blank">Pro</a> or <a href="http://wordpress.org/plugins/wp-all-import" target="_blank">Free</a>, and the <a href="http://themeforest.net/item/wordpress-job-board-theme-jobify/5247604">Jobify</a> theme.',
+	'The Jobify Add-On requires WP All Import <a href="http://www.wpallimport.com/order-now/?utm_source=free-plugin&utm_medium=dot-org&utm_campaign=jobify" target="_blank">Pro</a> or <a href="http://wordpress.org/plugins/wp-all-import" target="_blank">Free</a>, and the <a href="https://astoundify.com/go/wp-all-import-buy-jobify/">Jobify</a> theme.',
 	array( 
 		'themes' => array( 'Jobify' )
 ) );
