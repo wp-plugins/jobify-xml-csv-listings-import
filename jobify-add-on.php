@@ -4,7 +4,7 @@
 Plugin Name: WP All Import - Jobify Add-On
 Plugin URI: http://www.wpallimport.com/
 Description: Supporting imports into the Jobify theme.
-Version: 1.0.2
+Version: 1.0.3 RC1
 Author: Soflyy
 */
 
@@ -37,19 +37,19 @@ $jobify_addon->add_field( '_company_video', 'Company Video', 'file');
 $jobify_addon->add_field( '_job_expires', 'Listing Expiry Date', 'text', null, 'Import date in any strtotime compatible format.');
 
 $jobify_addon->add_field( '_filled', 'Filled', 'radio', 
-	array(
-		'0' => 'No',
-		'1' => 'Yes'
-	),
-	'Filled listings will no longer accept applications.'
+    array(
+        '0' => 'No',
+        '1' => 'Yes'
+    ),
+    'Filled listings will no longer accept applications.'
 );
 
 $jobify_addon->add_field( '_featured', 'Featured Listing', 'radio', 
-	array(
-		'0' => 'No',
-		'1' => 'Yes'
-	),
-	'Featured listings will be sticky during searches, and can be styled differently.'
+    array(
+        '0' => 'No',
+        '1' => 'Yes'
+    ),
+    'Featured listings will be sticky during searches, and can be styled differently.'
 );
 
 $jobify_addon->add_options(
@@ -66,14 +66,14 @@ $jobify_addon->add_options(
 $jobify_addon->set_import_function( 'jobify_addon_import' );
 
 $jobify_addon->admin_notice(
-	'The Jobify Add-On requires WP All Import <a href="http://www.wpallimport.com/order-now/?utm_source=free-plugin&utm_medium=dot-org&utm_campaign=jobify" target="_blank">Pro</a> or <a href="http://wordpress.org/plugins/wp-all-import" target="_blank">Free</a>, and the <a href="https://astoundify.com/go/wp-all-import-buy-jobify/">Jobify</a> theme.',
-	array( 
-		'themes' => array( 'Jobify' )
+    'The Jobify Add-On requires WP All Import <a href="http://www.wpallimport.com/order-now/?utm_source=free-plugin&utm_medium=dot-org&utm_campaign=jobify" target="_blank">Pro</a> or <a href="http://wordpress.org/plugins/wp-all-import" target="_blank">Free</a>, and the <a href="https://astoundify.com/go/wp-all-import-buy-jobify/">Jobify</a> theme.',
+    array( 
+        'themes' => array( 'Jobify' )
 ) );
 
 $jobify_addon->run( array(
-		'themes' => array( 'Jobify' ),
-		'post_types' => array( 'job_listing' ) 
+        'themes' => array( 'Jobify' ),
+        'post_types' => array( 'job_listing' ) 
 ) );
 
 function jobify_addon_import( $post_id, $data, $import_options ) {
@@ -101,29 +101,11 @@ function jobify_addon_import( $post_id, $data, $import_options ) {
 
         if ( $jobify_addon->can_update_meta( $field, $import_options ) ) {
 
-	        update_post_meta( $post_id, $field, $data[$field] );
+            update_post_meta( $post_id, $field, $data[$field] );
 
         }
     }
 
-function company_logo($post_id, $data, $import_options ) {
-
-    $attachment_id = $data['company_logo']['attachment_id'];
-
-    $url = wp_get_attachment_url( $attachment_id );
-
-    update_post_meta( $post_id, '_company_logo', $url );
-
-}
-function upload_company_video( $post_id, $data, $import_options ) {
-
-    $attachment_id = $data['upload_company_video']['attachment_id'];
-
-    $url = wp_get_attachment_url( $attachment_id );
-
-    update_post_meta( $post_id, '_company_video', $url );
-
-}
     // set featured image
     $field = 'company_featured_image';
 
@@ -164,11 +146,30 @@ function upload_company_video( $post_id, $data, $import_options ) {
 
     if ( $jobify_addon->can_update_meta( $field, $import_options ) && !empty( $date ) ) {
 
-	    $date = date( 'Y-m-d', $date );
+        $date = date( 'Y-m-d', $date );
 
         update_post_meta( $post_id, $field, $date );
 
     }
+}
+
+function company_logo($post_id, $data, $import_options ) {
+
+    $attachment_id = $data['company_logo']['attachment_id'];
+
+    $url = wp_get_attachment_url( $attachment_id );
+
+    update_post_meta( $post_id, '_company_logo', $url );
+
+}
+function upload_company_video( $post_id, $data, $import_options ) {
+
+    $attachment_id = $data['upload_company_video']['attachment_id'];
+
+    $url = wp_get_attachment_url( $attachment_id );
+
+    update_post_meta( $post_id, '_company_video', $url );
+
 }
 
 
