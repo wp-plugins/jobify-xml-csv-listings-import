@@ -4,7 +4,7 @@
 Plugin Name: WP All Import - Jobify Add-On
 Plugin URI: http://www.wpallimport.com/
 Description: Supporting imports into the Jobify theme.
-Version: 1.0.3
+Version: 1.0.2
 Author: Soflyy
 */
 
@@ -41,7 +41,7 @@ $jobify_addon->add_field( 'video_type', 'Company Video', 'radio',
         ),
         'local' => array(
             'Locally Hosted',
-            $jobify_addon->add_field( '_company_video_upload', 'Upload Video', 'file')
+            $jobify_addon->add_field( '_company_video_id', 'Upload Video', 'file')
 )));
 
 $jobify_addon->add_field( '_job_expires', 'Listing Expiry Date', 'text', null, 'Import date in any strtotime compatible format.');
@@ -150,18 +150,17 @@ function jobify_addon_import( $post_id, $data, $import_options ) {
 
     if ( $jobify_addon->can_update_meta( '_company_video', $import_options ) ) {
 
-        if ( $data['video_type'] == 'external' && !empty( $data['_company_video_url'] ) ) {
+        if ( $data['video_type'] == 'external' ) {
 
             update_post_meta( $post_id, '_company_video', $data['_company_video_url'] );
 
-        } elseif ( $data['video_type'] == 'local' && !empty( $data['_company_video_upload'] ) ) {
+        } elseif ( $data['video_type'] == 'local' ) {
 
-            $attachment_id = $data['_company_video_upload']['attachment_id'];
+            $attachment_id = $data['_company_video_id']['attachment_id'];
 
             $url = wp_get_attachment_url( $attachment_id );
 
             update_post_meta( $post_id, '_company_video', $url );
-
         }
     }
 
@@ -189,16 +188,6 @@ function company_logo($post_id, $data, $import_options ) {
     $url = wp_get_attachment_url( $attachment_id );
 
     update_post_meta( $post_id, '_company_logo', $url );
-
-}
-
-function upload_company_video( $post_id, $data, $import_options ) {
-
-    $attachment_id = $data['upload_company_video']['attachment_id'];
-
-    $url = wp_get_attachment_url( $attachment_id );
-
-    update_post_meta( $post_id, '_company_video', $url );
 
 }
 
