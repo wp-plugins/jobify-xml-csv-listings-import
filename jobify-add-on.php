@@ -4,7 +4,7 @@
 Plugin Name: WP All Import - Jobify Add-On
 Plugin URI: http://www.wpallimport.com/
 Description: Supporting imports into the Jobify theme.
-Version: 1.0.2
+Version: 1.0.3
 Author: Soflyy
 */
 
@@ -32,7 +32,17 @@ $jobify_addon->add_field( '_company_logo', 'Company Logo', 'image');
 $jobify_addon->add_field( 'company_featured_image', 'Featured Image', 'image');
 
 // field is _company_video, will 'image' add_field support videos?
-$jobify_addon->add_field( '_company_video', 'Company Video', 'file');
+
+$jobify_addon->add_field( 'video_type', 'Company Video', 'radio',
+    array(
+        'external' => array(
+            'Externally Hosted',
+            $jobify_addon->add_field( '_company_video_url', 'Video URL', 'text')
+        ),
+        'local' => array(
+            'Locally Hosted',
+            $jobify_addon->add_field( '_company_video_upload', 'Upload Video', 'file')
+)));
 
 $jobify_addon->add_field( '_job_expires', 'Listing Expiry Date', 'text', null, 'Import date in any strtotime compatible format.');
 
@@ -117,10 +127,9 @@ function jobify_addon_import( $post_id, $data, $import_options ) {
 
     }
 
-    // update video and logo
+    // update logo
     $fields = array(
         '_company_logo',
-        '_company_video'
     );
 
     if ( $jobify_addon->can_update_image( $import_options ) ) {
@@ -136,6 +145,26 @@ function jobify_addon_import( $post_id, $data, $import_options ) {
         }
 
     }
+
+    // update video
+
+    if ( $jobify_addon->can_update_meta( '_company_video', $import_options ) ) {
+
+        if ( $data['video_type'] == 'external' && !empty( $data['_company_video_url'] ) ) {
+
+            update_post_meta( $post_id, '_company_video', $data['_company_video_url'] );
+
+        } elseif ( $data['video_type'] == 'local' && !empty( $data['_company_video_upload'] ) ) {
+
+            $attachment_id = $data['_company_video_upload']['attachment_id'];
+
+            $url = wp_get_attachment_url( $attachment_id );
+
+            update_post_meta( $post_id, '_company_video', $url );
+
+        }
+    }
+
 
     // update listing expiration date
     $field = '_job_expires';
@@ -162,6 +191,7 @@ function company_logo($post_id, $data, $import_options ) {
     update_post_meta( $post_id, '_company_logo', $url );
 
 }
+
 function upload_company_video( $post_id, $data, $import_options ) {
 
     $attachment_id = $data['upload_company_video']['attachment_id'];
