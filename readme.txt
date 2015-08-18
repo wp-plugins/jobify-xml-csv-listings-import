@@ -17,9 +17,9 @@ The left side shows all of the fields that you can import to and the right side 
 
 The importer is so intuitive it is almost like manually adding a job opening in Jobify.
 
-We have several other add-ons available, each specific to a different theme. This is a walkthrough of the Realia Add-On, which is very similar to the Jobify Add-On.
+We have several other add-ons available, each specific to a different theme. This is a walkthrough of the WP Job Manager Add-On, which is very similar to the Jobify Add-On.
 
-https://www.youtube.com/watch?v=_wvz0FfbutA
+https://www.youtube.com/watch?v=foL8u1ObaPY
 
 = Why you should use the Jobify Add-On for WP All Import =
 
