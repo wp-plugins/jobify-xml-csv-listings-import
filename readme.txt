@@ -5,7 +5,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.1.0
 Tested up to: 4.2.3
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 
 Easily import job listings from any XML or CSV file to the Jobify theme with the Jobify Add-On for WP All Import.
 
@@ -77,6 +77,9 @@ The Jobify Add-On will appear in the Step 3 of WP All Import.
 Aside from making your import easier and simpler, the Jobify Add-On will fully support your theme’s various image galleries and file attachments as well as allow you to easily import location data.
 
 == Changelog ==
+
+= 1.0.4 =
+* Update WP All Import add-on API
 
 = 1.0.3 =
 * Improve company video imports
